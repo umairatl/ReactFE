@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import "./style.css";
 
-function App() {
+export default function App() {
+  const [name, setName] = React.useState<string>("San");
+  const [age, setAge] = React.useState<string | undefined>();
+
+  const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const changeAge = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAge(event.target.value);
+  };
+
+  type InputType = {
+    name: string;
+    value: string;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input name="Name" value={name} onChange={changeName} />
+      <br />
+      <input name="Age" value={age} onChange={changeAge} />
+      <br />
     </div>
   );
 }
-
-export default App;
