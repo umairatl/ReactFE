@@ -1,30 +1,81 @@
 import * as React from "react";
-import "./style.css";
+import "./App.css";
 
 export default function App() {
-  const [name, setName] = React.useState<string>("San");
-  const [age, setAge] = React.useState<string | undefined>();
+  const [name, setName] = React.useState<string>("");
+  const [age, setAge] = React.useState<string>("");
+  const [color, setColor] = React.useState<string>("Red");
 
-  const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const takeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  const changeAge = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const takeAge = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAge(event.target.value);
   };
 
-  type InputType = {
-    name: string;
-    value: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  const takeColor = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setColor(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(name, age, color);
   };
 
   return (
-    <div>
-      <input name="Name" value={name} onChange={changeName} />
-      <br />
-      <input name="Age" value={age} onChange={changeAge} />
-      <br />
+    <div className="form-col">
+      <h1>FORM SIGN UP</h1>
+      <br></br>
+      <form onSubmit={handleSubmit}>
+        <Input name="Name" value={name} onChange={takeName} />
+        <Input name="Age" value={age} onChange={takeAge} />
+        <Select
+          name="Choose favorite color"
+          value={color}
+          onChange={takeColor}
+        />
+        <button className="submit-btn" type="submit">
+          Submit
+        </button>
+        <br></br>
+        <button className="clear-btn">Clear</button>
+      </form>
     </div>
   );
 }
+
+// setting data type for input
+type InputType = {
+  name: string;
+  value: string | undefined;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const Input = ({ name, value, onChange }: InputType) => {
+  return (
+    <div>
+      <label>{name} :</label>
+      <input value={value} onChange={onChange} />
+    </div>
+  );
+};
+
+// setting data type for select
+type SelectType = {
+  name: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+};
+
+const Select = ({ name, value, onChange }: SelectType) => {
+  return (
+    <div>
+      <label>{name} :</label>
+      <select value={value} onChange={onChange}>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+      </select>
+    </div>
+  );
+};
