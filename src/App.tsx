@@ -5,6 +5,7 @@ export default function App() {
   const [name, setName] = React.useState<string>("");
   const [age, setAge] = React.useState<string>("");
   const [color, setColor] = React.useState<string>("Red");
+  let update = "non-submit";
 
   const takeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -20,7 +21,7 @@ export default function App() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(name, age, color);
+    update = "submit";
   };
 
   return (
@@ -41,6 +42,9 @@ export default function App() {
         <br></br>
         <button className="clear-btn">Clear</button>
       </form>
+      <p style={{ color: "white" }}>
+        {name} is {age}, and he likes {color}
+      </p>
     </div>
   );
 }

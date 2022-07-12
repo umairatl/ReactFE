@@ -62,6 +62,11 @@ form select {
   border-radius: 8px;
 }
 
+.para-statement {
+  color: var(white);
+  font-size: 14pt;
+}
+
 button {
   font-size: 1.2rem;
   width: 50%;
